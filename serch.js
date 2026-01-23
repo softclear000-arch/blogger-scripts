@@ -19,7 +19,7 @@ async function searchWords() {
 
   try {
     // ※ ここはご自身のGitHub上のテキストファイルのURLに書き換えてください
-    const githubTxtUrl = 'https://raw.githubusercontent.com/ユーザー名/リポジトリ名/main/words.txt';
+    const githubTxtUrl = 'https://raw.githubusercontent.com/softclear000-arch/blogger-scripts/luw_5char_words_utf8_uniq.txt';
     const response = await fetch(githubTxtUrl);
     const data = await response.text();
     const wordList = data.split(/\r?\n/);
@@ -38,4 +38,5 @@ async function searchWords() {
   } catch (error) {
     resultArea.innerText = "データの取得に失敗しました。";
   }
+
 }
