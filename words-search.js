@@ -18,7 +18,7 @@ function searchWords() {
   }
 
   resultArea.innerText = "検索中...";
-
+/*
   try {
     // ※ ここをあなたのGitHub Raw URLに書き換えてください
     //const githubTxtUrl = 'https://raw.githubusercontent.com/ユーザー名/リポジトリ名/main/words.txt';
@@ -55,9 +55,10 @@ function searchWords() {
     console.error('Error:', error);
     resultArea.innerText = "データの取得に失敗しました。ファイルがUTF-8で保存されているか確認してください。";
   }
-  
-  // resultArea.innerText = "Now, Testing...";
+*/
+ 
 }
+
 
 
 
