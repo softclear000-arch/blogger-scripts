@@ -16,8 +16,8 @@ function searchWords() {
     resultArea.innerText = "検索するカタカナを1つ以上入力してください。";
     return;
   }
-
-  resultArea.innerText = "検索中...";
+  resultArea.innerText = chars.length;
+  //resultArea.innerText = "検索中...";
 /*
   try {
     // ※ ここをあなたのGitHub Raw URLに書き換えてください
@@ -58,6 +58,7 @@ function searchWords() {
 */
  
 }
+
 
 
 
