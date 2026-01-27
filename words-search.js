@@ -1,6 +1,7 @@
 async function searchWords() {
   const resultArea = document.getElementById('result-area');
-  
+
+  /*
   // 1. 入力された文字を取得し、正規化（全角に統一）して空欄を除外
   const chars = [
     document.getElementById('char1').value,
@@ -55,4 +56,7 @@ async function searchWords() {
     console.error('Error:', error);
     resultArea.innerText = "データの取得に失敗しました。ファイルがUTF-8で保存されているか確認してください。";
   }
+  */
+  resultArea.innerHTML = "Now, Testing...";
 }
+
