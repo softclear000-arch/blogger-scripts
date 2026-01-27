@@ -57,6 +57,7 @@ async function searchWords() {
     resultArea.innerText = "データの取得に失敗しました。ファイルがUTF-8で保存されているか確認してください。";
   }
   */
-  resultArea.innerHTML = "Now, Testing...";
+  resultArea.innerText = "Now, Testing...";
 }
+
 
