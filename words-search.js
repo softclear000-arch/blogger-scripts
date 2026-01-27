@@ -1,4 +1,4 @@
-async function searchWords() {
+function searchWords() {
   const resultArea = document.getElementById('result-area');
 
   /*
@@ -59,5 +59,6 @@ async function searchWords() {
   */
   resultArea.innerText = "Now, Testing...";
 }
+
 
 
