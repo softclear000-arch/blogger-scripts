@@ -1,4 +1,4 @@
-function searchWords() {
+async function searchWords() {
   const resultArea = document.getElementById('result-area');
 
   // 1. 入力された文字を取得し、正規化（全角に統一）して空欄を除外
@@ -58,6 +58,7 @@ function searchWords() {
 */
  
 }
+
 
 
 
