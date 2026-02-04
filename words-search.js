@@ -48,7 +48,7 @@ async function searchWords() {
 
       // 5つの各ポジションを順番にチェックする
       for (let i = 0; i < 5; i++) {
-        const inputChar = Chars[i];
+        const inputChar = chars[i];
 
         // もし入力欄(i番目)に文字が入っているなら...
         if (inputChar !== "") {
@@ -110,6 +110,7 @@ async function searchWords() {
     resultArea.innerText = "データの取得に失敗しました。ファイルが正しく公開されているか確認してください。";
   }
 }
+
 
 
 
