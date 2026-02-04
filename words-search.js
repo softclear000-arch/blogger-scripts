@@ -54,9 +54,6 @@ async function searchWords() {
     return chars.every(char => normalizedWord.includes(char));
   });
 
-  resultArea.innerText = matches.length;
-
-  /*
   // --- 手順4：結果を画面に表示する ---
 
   // もし1つ以上見つかった場合
@@ -82,13 +79,13 @@ async function searchWords() {
     // 1つも見つからなかった場合の表示
     resultArea.innerText = "一致する単語は見つかりませんでした。";
   }
-*/
 } catch (error) {
   // 通信トラブルやプログラムミスなど、どこかでエラーが起きた場合の処理
   console.error('Error:', error);
   resultArea.innerText = "データの取得に失敗しました。ファイルが正しく公開されているか確認してください。";
 }
 }
+
 
 
 
