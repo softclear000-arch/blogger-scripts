@@ -26,7 +26,7 @@ async function searchWords() {
     // --- 手順1：GitHubから単語ファイルをダウンロードする ---
     // GitHubにあるテキストファイルの場所（URL）を指定します
 
-    const githubTxtUrl = 'https://raw.githubusercontent.com/softclear000-arch/blogger-scripts/main/luw_5char_sample_utf8.txt';
+    const githubTxtUrl = 'https://raw.githubusercontent.com/softclear000-arch/blogger-scripts/main/luw_5char_words_utf8_uniq.txt';
     const response = await fetch(githubTxtUrl);
     if (!response.ok) throw new Error('通信エラー');
     
@@ -165,6 +165,7 @@ async function searchWords() {
   }
 }
 */
+
 
 
 
