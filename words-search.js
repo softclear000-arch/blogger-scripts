@@ -54,7 +54,7 @@ async function searchWords() {
     return chars.every(char => normalizedWord.includes(char));
   });
 
-  resultArea.innerText = normalizedWord;
+  resultArea.innerText = matches.length;
 
   /*
   // --- 手順4：結果を画面に表示する ---
@@ -89,6 +89,7 @@ async function searchWords() {
   resultArea.innerText = "データの取得に失敗しました。ファイルが正しく公開されているか確認してください。";
 }
 }
+
 
 
 
