@@ -1,24 +1,79 @@
 async function searchWords() {
   const resultArea = document.getElementById('result-area');
 
-  // 1. 入力された文字を取得し、正規化（全角に統一）して空欄を除外
-  const chars = [
+ // 1. 5つの入力を「位置を保ったまま」取得する
+ // 今回は .filter() で空欄を消さずに、5つの要素が入った配列のままにします
+  const inputChars = [
     document.getElementById('char1').value,
     document.getElementById('char2').value,
     document.getElementById('char3').value,
     document.getElementById('char4').value,
     document.getElementById('char5').value
-  ]
-  .map(c => c.normalize('NFKC').trim()) // 半角を全角に変換し、余計な空白を削除
-  .filter(c => c !== ""); 
+  ].map(c => c.normalize('NFKC').trim()); // 正規化だけ行う
 
-  if (chars.length === 0) {
-    resultArea.innerText = "検索するカタカナを1つ以上入力してください。";
+
+  // すべての入力が空でないか一応チェック（最低1文字は入力してほしい場合）
+  if (inputChars.every(c => c === "")) {
+    resultArea.innerText = "文字を少なくとも1つ入力してください。";
     return;
   }
+
   //resultArea.innerText = chars.length;
   resultArea.innerText = "検索中...";
 
+
+  try {
+    // --- 手順1：GitHubから単語ファイルをダウンロードする ---
+    // GitHubにあるテキストファイルの場所（URL）を指定します
+
+    const githubTxtUrl = 'https://raw.githubusercontent.com/softclear000-arch/blogger-scripts/main/luw_5char_sample_utf8.txt';
+    const response = await fetch(githubTxtUrl);
+    if (!response.ok) throw new Error('通信エラー');
+    
+    const data = await response.text();
+    const wordList = data.split(/\r?\n/).filter(line => line.trim() !== "");
+
+    // 2. 「位置」が合致するかどうかのフィルタリング
+    const matches = wordList.filter(word => {
+      const normalizedWord = word.normalize('NFKC');
+
+      // 5つの各ポジションを順番にチェックする
+      for (let i = 0; i < 5; i++) {
+        const inputChar = inputChars[i];
+
+        // もし入力欄(i番目)に文字が入っているなら...
+        if (inputChar !== "") {
+          // 単語のi番目の文字が、入力された文字と違う場合は「不合格(false)」
+          if (normalizedWord[i] !== inputChar) {
+            return false;
+          }
+        }
+        // 入力欄が空(inputChar === "")なら、その位置の文字は何でも良いのでスルー
+      }
+      // すべてのチェックを通過したら「合格(true)」
+      return true;
+    });
+
+    // 3. 結果を表示
+    if (matches.length > 0) {
+      const firstFive = matches.slice(0, 5);
+      let html = `<p><b>合致する単語 (${matches.length}件中、最大5件):</b></p><ul>`;
+      firstFive.forEach(w => {
+        html += `<li>${w}</li>`;
+      });
+      html += `</ul>`;
+      resultArea.innerHTML = html;
+    } else {
+      resultArea.innerText = "条件に合う単語は見つかりませんでした。";
+    }
+
+  } catch (error) {
+    console.error('Error:', error);
+    resultArea.innerText = "エラーが発生しました。";
+  }
+}
+
+/*
   try {
     // --- 手順1：GitHubから単語ファイルをダウンロードする ---
     
@@ -48,7 +103,7 @@ async function searchWords() {
 
       // 5つの各ポジションを順番にチェックする
       for (let i = 0; i < 5; i++) {
-        const inputChar = chars[i];
+        const inputChar = Chars[i];
 
         // もし入力欄(i番目)に文字が入っているなら...
         if (inputChar !== "") {
@@ -76,7 +131,6 @@ async function searchWords() {
       return chars.every(char => normalizedWord.includes(char));
     });
 
-    */
 
     // --- 手順4：結果を画面に表示する ---
 
@@ -103,16 +157,14 @@ async function searchWords() {
       // 1つも見つからなかった場合の表示
       resultArea.innerText = "一致する単語は見つかりませんでした。";
     }
-
+  
   } catch (error) {
     // 通信トラブルやプログラムミスなど、どこかでエラーが起きた場合の処理
     console.error('Error:', error);
     resultArea.innerText = "データの取得に失敗しました。ファイルが正しく公開されているか確認してください。";
   }
 }
-
-
-
+*/
 
 
 
