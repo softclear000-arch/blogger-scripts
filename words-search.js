@@ -9,6 +9,12 @@ async function searchWords() {
     });
   };
 
+  // 【重要】長音記号を「ー（全角）」に強制変換する関数
+  const normalizeLongVowel = (str) => {
+    // ハイフン、マイナス、全角ハイフンなどを全角長音記号「ー」に統一
+    return str.replace(/[-‐‒–—−‐ー]/g, 'ー');
+  };
+
  // 1. 5つの入力を「位置を保ったまま」取得する
  // 今回は .filter() で空欄を消さずに、5つの要素が入った配列のままにします
   const inputChars = [
