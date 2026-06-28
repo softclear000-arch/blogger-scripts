@@ -1,6 +1,14 @@
 async function searchWords() {
   const resultArea = document.getElementById('result-area');
 
+  // ひらがなをカタカナに変換する関数
+  const hiraganaToKatakana = (str) => {
+    return str.replace(/[\u3041-\u3096]/g, (match) => {
+      const chr = match.charCodeAt(0) + 0x60;
+      return String.fromCharCode(chr);
+    });
+  };
+
  // 1. 5つの入力を「位置を保ったまま」取得する
  // 今回は .filter() で空欄を消さずに、5つの要素が入った配列のままにします
   const inputChars = [
@@ -9,8 +17,11 @@ async function searchWords() {
     document.getElementById('char3').value,
     document.getElementById('char4').value,
     document.getElementById('char5').value
-  ].map(c => c.normalize('NFKC').trim()); // 正規化だけ行う
-
+ // ].map(c => c.normalize('NFKC').trim()); // 正規化だけ行う
+  ].map(c => {
+    // ひらがなをカタカナに変換し、さらに正規化(NFKC)で全角統一と濁音などの合成を整える
+    return hiraganaToKatakana(c).normalize('NFKC').trim();
+  });
 
   // すべての入力が空でないか一応チェック（最低1文字は入力してほしい場合）
   if (inputChars.every(c => c === "")) {
@@ -36,6 +47,8 @@ async function searchWords() {
 
     // 2. 「位置」が合致するかどうかのフィルタリング
     const matches = wordList.filter(word => {
+      // const normalizedWord = word.normalize('NFKC');
+      // リスト側の単語も正規化して比較する（長音記号もこれで統一されます）
       const normalizedWord = word.normalize('NFKC');
 
       // 5つの各ポジションを順番にチェックする
@@ -57,7 +70,7 @@ async function searchWords() {
 
     // 3. 結果を表示
     if (matches.length > 0) {
-      const firstFive = matches.slice(0, 5);
+      const firstFive = matches.slice(0, 100);
       let html = `<p><b>合致する単語 (${matches.length}件中、最大5件):</b></p><ul>`;
       firstFive.forEach(w => {
         html += `<li>${w}</li>`;
