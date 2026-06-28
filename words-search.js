@@ -70,8 +70,9 @@ async function searchWords() {
 
     // 3. 結果を表示
     if (matches.length > 0) {
-      const firstFive = matches.slice(0, 100);
-      let html = `<p><b>合致する単語 (${matches.length}件中、最大5件):</b></p><ul>`;
+      const displayCount = 100;
+      const firstFive = matches.slice(0, displayCount);
+      let html = `<p><b>合致する単語 (${matches.length}件中、最大${displayCount}件表示):</b></p><ul>`;
       firstFive.forEach(w => {
         html += `<li>${w}</li>`;
       });
