@@ -24,9 +24,11 @@ async function searchWords() {
     document.getElementById('char4').value,
     document.getElementById('char5').value
  // ].map(c => c.normalize('NFKC').trim()); // 正規化だけ行う
-  ].map(c => {
-    // ひらがなをカタカナに変換し、さらに正規化(NFKC)で全角統一と濁音などの合成を整える
-    return hiraganaToKatakana(c).normalize('NFKC').trim();
+　].map(c => {
+    // 1. ひらがな→カタカナ
+    // 2. 長音記号を統一
+    // 3. 正規化（NFKC）で全角統一と濁音合成
+    return normalizeLongVowel(hiraganaToKatakana(c).normalize('NFKC')).trim();
   });
 
   // すべての入力が空でないか一応チェック（最低1文字は入力してほしい場合）
@@ -54,9 +56,9 @@ async function searchWords() {
     // 2. 「位置」が合致するかどうかのフィルタリング
     const matches = wordList.filter(word => {
       // const normalizedWord = word.normalize('NFKC');
-      // リスト側の単語も正規化して比較する（長音記号もこれで統一されます）
-      const normalizedWord = word.normalize('NFKC');
-
+      // リスト側の単語も同様に長音記号を統一してから比較する
+      const normalizedWord = normalizeLongVowel(word.normalize('NFKC'));
+      
       // 5つの各ポジションを順番にチェックする
       for (let i = 0; i < 5; i++) {
         const inputChar = inputChars[i];
