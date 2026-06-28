@@ -46,7 +46,9 @@ async function searchWords() {
     // GitHubにあるテキストファイルの場所（URL）を指定します
 
     //const githubTxtUrl = 'https://raw.githubusercontent.com/softclear000-arch/blogger-scripts/main/luw_5char_words_utf8_uniq.txt';
-    const githubTxtUrl = 'https://raw.githubusercontent.com/softclear000-arch/blogger-scripts/main/intersection_kokkugo_WLSP.txt';
+    //const githubTxtUrl = 'https://raw.githubusercontent.com/softclear000-arch/blogger-scripts/main/intersection_kokkugo_WLSP.txt';
+    const githubTxtUrl = 'https://raw.githubusercontent.com/softclear000-arch/blogger-scripts/main/A_data_new.csv';
+ 
     const response = await fetch(githubTxtUrl);
     if (!response.ok) throw new Error('通信エラー');
     
